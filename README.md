@@ -1,5 +1,7 @@
 # Battleship — Aegis Naval Command for macOS
 
+**Live Website:** [https://battleship-aegis.web.app](https://battleship-aegis.web.app)
+
 A native macOS (SwiftUI) tactical Battleship board game featuring a **Modern Naval Command Center** interface, animated radar sweeps, procedural naval audio synthesis, multi-difficulty AI with real-time probability density calculations, and 3 combat rule variants.
 
 ## Features

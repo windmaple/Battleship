@@ -1,0 +1,822 @@
+:root {
+  --bg-deep: #060d18;
+  --bg-panel: #0c1728;
+  --bg-elevated: #122137;
+  --grid-water: #091526;
+  --grid-line: rgba(0, 235, 255, 0.16);
+  --border-subtle: rgba(148, 209, 250, 0.14);
+  --border-strong: rgba(0, 235, 255, 0.34);
+
+  --sonar-cyan: #00ebff;
+  --radar-emerald: #10d98f;
+  --threat-crimson: #ff3b30;
+  --warning-amber: #ffb800;
+  --hull-steel: #5c85ad;
+  --hull-outline: #94d1fa;
+
+  --text-primary: #e8f5ff;
+  --text-secondary: #8cb0d6;
+  --text-muted: #5c7a9e;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --shadow-panel: 0 22px 50px -16px rgba(2, 6, 14, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(1100px 540px at 80% -10%, rgba(0, 235, 255, 0.09), transparent 65%),
+    radial-gradient(900px 480px at 12% 18%, rgba(16, 217, 143, 0.06), transparent 60%),
+    var(--bg-deep);
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  width: min(1220px, calc(100% - 40px));
+  margin-inline: auto;
+}
+
+/* ============ TOP COMMAND BAR ============ */
+.command-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(6, 13, 24, 0.86);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.command-nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  height: 68px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand__icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 4px 14px rgba(0, 235, 255, 0.16);
+}
+
+.brand__meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.brand__sub {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--sonar-cyan);
+  letter-spacing: 0.08em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  transition: color 0.18s ease;
+}
+
+.nav-links a:hover {
+  color: var(--sonar-cyan);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ============ BUTTONS ============ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--primary {
+  background: var(--sonar-cyan);
+  color: #03101c;
+  box-shadow: 0 6px 22px rgba(0, 235, 255, 0.25);
+}
+
+.btn--primary:hover {
+  background: #3bf0ff;
+  box-shadow: 0 8px 28px rgba(0, 235, 255, 0.36);
+}
+
+.btn--ghost {
+  background: rgba(18, 33, 55, 0.72);
+  color: var(--text-primary);
+  border-color: var(--border-subtle);
+}
+
+.btn--ghost:hover {
+  border-color: var(--sonar-cyan);
+  color: var(--sonar-cyan);
+}
+
+/* ============ HERO & LIVE AEGIS SIMULATOR ============ */
+.hero {
+  padding: 56px 0 64px;
+}
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 44px;
+  align-items: start;
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--radar-emerald);
+  margin-bottom: 16px;
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 4vw, 3.45rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  margin-bottom: 20px;
+}
+
+.hero__lead {
+  font-size: 1.08rem;
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+  max-width: 54ch;
+}
+
+.hero__cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.telemetry-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.telemetry-item {
+  background: rgba(12, 23, 40, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+}
+
+.telemetry-item__label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.telemetry-item__val {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 2px;
+}
+
+/* ============ TACTICAL CONSOLE ============ */
+.console-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-panel);
+  overflow: hidden;
+}
+
+.console-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border-subtle);
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.console-header__left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.window-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.window-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(140, 176, 214, 0.28);
+}
+
+.window-dots span:nth-child(1) { background: #ff5f57; }
+.window-dots span:nth-child(2) { background: #febc2e; }
+.window-dots span:nth-child(3) { background: #28c840; }
+
+.console-title {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
+.console-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chip-btn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background: rgba(6, 13, 24, 0.75);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+.chip-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--sonar-cyan);
+}
+
+.chip-btn.is-active {
+  background: rgba(0, 235, 255, 0.16);
+  color: var(--sonar-cyan);
+  border-color: var(--sonar-cyan);
+}
+
+.console-body {
+  padding: 18px;
+}
+
+.weapon-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.weapon-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  background: rgba(6, 13, 24, 0.7);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.weapon-btn:hover:not(:disabled) {
+  border-color: var(--hull-outline);
+  color: var(--text-primary);
+}
+
+.weapon-btn.is-selected {
+  background: rgba(0, 235, 255, 0.13);
+  border-color: var(--sonar-cyan);
+  color: var(--text-primary);
+}
+
+.weapon-btn:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+
+.weapon-btn__name {
+  font-size: 0.73rem;
+  font-weight: 700;
+  color: inherit;
+}
+
+.weapon-btn__meta {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}
+
+.sim-workspace {
+  display: grid;
+  grid-template-columns: 1fr 205px;
+  gap: 16px;
+  align-items: start;
+}
+
+.tactical-board-wrap {
+  position: relative;
+  background: var(--grid-water);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 12px;
+}
+
+.grid-coords-top {
+  display: grid;
+  grid-template-columns: 22px repeat(10, 1fr);
+  margin-bottom: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.grid-main-row {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 4px;
+}
+
+.grid-coords-left {
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  align-items: center;
+  justify-items: center;
+}
+
+.tactical-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--grid-line);
+  background: var(--grid-water);
+}
+
+.grid-cell {
+  position: relative;
+  border: 1px solid rgba(0, 235, 255, 0.09);
+  background: transparent;
+  cursor: crosshair;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: rgba(232, 245, 255, 0.78);
+  padding: 0;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.grid-cell.is-target-preview {
+  border-color: var(--sonar-cyan);
+  background: rgba(0, 235, 255, 0.22) !important;
+}
+
+.grid-cell.is-miss {
+  background: rgba(92, 122, 158, 0.16);
+  cursor: default;
+}
+
+.grid-cell.is-miss::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-secondary);
+}
+
+.grid-cell.is-hit {
+  background: rgba(255, 59, 48, 0.24);
+  border-color: rgba(255, 59, 48, 0.6);
+  cursor: default;
+}
+
+.grid-cell.is-hit::after {
+  content: '✕';
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--threat-crimson);
+}
+
+.grid-cell.is-sunk {
+  background: rgba(255, 59, 48, 0.38);
+  border-color: var(--threat-crimson);
+}
+
+.grid-cell.is-sonar-clear {
+  background: rgba(16, 217, 143, 0.12);
+}
+
+.grid-cell.is-sonar-contact {
+  background: rgba(255, 184, 0, 0.28);
+  border-color: var(--warning-amber);
+}
+
+.grid-cell.is-sonar-contact::after {
+  content: '!';
+  font-weight: 700;
+  color: var(--warning-amber);
+}
+
+/* Side Fleet & Log Panel */
+.sim-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebar-box {
+  background: rgba(6, 13, 24, 0.72);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+}
+
+.sidebar-box__title {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.fleet-status-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.fleet-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.fleet-row.is-destroyed .fleet-row__name {
+  text-decoration: line-through;
+  color: var(--threat-crimson);
+}
+
+.fleet-pips {
+  display: flex;
+  gap: 3px;
+}
+
+.fleet-pip {
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--radar-emerald);
+}
+
+.fleet-pip.is-hit {
+  background: var(--threat-crimson);
+}
+
+.combat-log {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  height: 118px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.combat-log__entry--hit {
+  color: var(--threat-crimson);
+}
+
+.combat-log__entry--sunk {
+  color: var(--warning-amber);
+  font-weight: 600;
+}
+
+.combat-log__entry--sonar {
+  color: var(--radar-emerald);
+}
+
+/* ============ SECTIONS ============ */
+.section {
+  padding: 72px 0;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.section-header {
+  max-width: 640px;
+  margin-bottom: 40px;
+}
+
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--sonar-cyan);
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.35rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.section-desc {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+/* ============ FLEET REGISTRY ============ */
+.fleet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.vessel-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  transition: border-color 0.18s ease, transform 0.18s ease;
+}
+
+.vessel-card:hover {
+  border-color: var(--sonar-cyan);
+  transform: translateY(-2px);
+}
+
+.vessel-card__code {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--sonar-cyan);
+  letter-spacing: 0.08em;
+}
+
+.vessel-card__name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.vessel-card__class {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.vessel-silhouette {
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(6, 13, 24, 0.65);
+  border: 1px solid rgba(148, 209, 250, 0.1);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+}
+
+.vessel-silhouette svg {
+  width: 100%;
+  height: 28px;
+  fill: rgba(92, 133, 173, 0.55);
+  stroke: var(--hull-outline);
+  stroke-width: 1.5;
+}
+
+.vessel-specs {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 10px;
+}
+
+/* ============ DOCTRINE & COMBAT RULES ============ */
+.doctrine-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.doctrine-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 24px;
+}
+
+.doctrine-card__tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  border-radius: 4px;
+  margin-bottom: 14px;
+}
+
+.doctrine-card__tag--cyan {
+  background: rgba(0, 235, 255, 0.14);
+  color: var(--sonar-cyan);
+}
+
+.doctrine-card__tag--emerald {
+  background: rgba(16, 217, 143, 0.14);
+  color: var(--radar-emerald);
+}
+
+.doctrine-card__tag--amber {
+  background: rgba(255, 184, 0, 0.15);
+  color: var(--warning-amber);
+}
+
+.doctrine-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.22rem;
+  margin-bottom: 10px;
+}
+
+.doctrine-card p {
+  color: var(--text-secondary);
+  font-size: 0.94rem;
+}
+
+/* ============ INSTALL & CLI ============ */
+.install-panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 28px;
+  align-items: center;
+}
+
+.code-block {
+  background: #040911;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  color: var(--text-primary);
+  overflow-x: auto;
+}
+
+.code-block .comment {
+  color: var(--text-muted);
+}
+
+.code-block .cmd {
+  color: var(--sonar-cyan);
+}
+
+/* ============ FOOTER ============ */
+.footer {
+  padding: 36px 0 48px;
+  border-top: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.footer__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+@media (max-width: 980px) {
+  .hero__grid,
+  .install-panel {
+    grid-template-columns: 1fr;
+  }
+  .doctrine-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .nav-links {
+    display: none;
+  }
+  .weapon-bar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sim-workspace {
+    grid-template-columns: 1fr;
+  }
+}

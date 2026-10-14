@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Battleship — Aegis Naval Command for macOS</title>
+  <meta name="description" content="A native SwiftUI macOS tactical Battleship game featuring an Aegis Naval Command Center interface, real-time combinatorial probability density overlays, procedural naval audio synthesis, and 3 combat rule variants." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Battleship — Aegis Naval Command for macOS" />
+  <meta property="og:description" content="Command Task Force 58 on macOS with animated radar sweeps, probability density heatmaps, Tactical Ops weaponry, and zero-dependency procedural audio." />
+  <meta property="og:image" content="assets/icon.png" />
+  <meta name="theme-color" content="#060d18" />
+  <link rel="icon" type="image/png" href="assets/icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <!-- TOP COMMAND NAVIGATION -->
+  <header class="command-nav">
+    <div class="container command-nav__inner">
+      <a href="#top" class="brand" id="nav-brand">
+        <img src="assets/icon.png" alt="Battleship App Icon" class="brand__icon" />
+        <div class="brand__meta">
+          <span class="brand__name">Battleship</span>
+          <span class="brand__sub">AEGIS NAVAL COMMAND // MACOS</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="#simulator" id="nav-link-simulator">Live Console</a>
+        <a href="#fleet" id="nav-link-fleet">Task Force 58</a>
+        <a href="#doctrine" id="nav-link-doctrine">AI &amp; Rules</a>
+        <a href="#install" id="nav-link-install">Build &amp; Run</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="https://github.com/windmaple/Battleship" target="_blank" rel="noopener" class="btn btn--ghost" id="nav-btn-github">GitHub</a>
+        <a href="downloads/Battleship-macOS-arm64.zip" download class="btn btn--primary" id="nav-btn-download">Download for macOS</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO + INTERACTIVE AEGIS TACTICAL SIMULATOR -->
+    <section class="hero" id="simulator">
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <div class="hero__eyebrow">SYS.AEGIS.V4 // NATIVE SWIFTUI MACOS 14+</div>
+          <h1>Modern Naval Warfare &amp; Combinatorial Probability on Your Mac.</h1>
+          <p class="hero__lead">
+            <strong>Battleship — Aegis Naval Command</strong> transforms the classic fleet duel into a high-precision tactical console. Engage an AI Admiral that evaluates every valid hull placement in real time, deploy Active Sonar and Tomahawk strikes, or battle a friend in classified Hotseat mode.
+          </p>
+
+          <div class="hero__cta-row">
+            <a href="downloads/Battleship-macOS-arm64.zip" download class="btn btn--primary" id="hero-btn-download">
+              Download Battleship.app (.zip)
+            </a>
+            <a href="https://github.com/windmaple/Battleship" target="_blank" rel="noopener" class="btn btn--ghost" id="hero-btn-source">
+              View Swift Source
+            </a>
+          </div>
+
+          <div class="telemetry-strip">
+            <div class="telemetry-item">
+              <div class="telemetry-item__label">AI Engine</div>
+              <div class="telemetry-item__val">10×10 PDF Matrix</div>
+            </div>
+            <div class="telemetry-item">
+              <div class="telemetry-item__label">Audio Synthesis</div>
+              <div class="telemetry-item__val">Procedural PCM</div>
+            </div>
+            <div class="telemetry-item">
+              <div class="telemetry-item__label">Architecture</div>
+              <div class="telemetry-item__val">Swift 5.9 + SwiftUI</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PLAYABLE INTERACTIVE SIMULATOR -->
+        <div class="console-card" aria-label="Interactive Aegis Tactical Simulator">
+          <div class="console-header">
+            <div class="console-header__left">
+              <div class="window-dots" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <span class="console-title">TACTICAL OPS SIMULATOR // CLICK GRID TO ENGAGE</span>
+            </div>
+            <div class="console-controls">
+              <button type="button" class="chip-btn is-active" id="btn-toggle-prob">PROBABILITY: ON</button>
+              <button type="button" class="chip-btn is-active" id="btn-toggle-audio">AUDIO: ON</button>
+              <button type="button" class="chip-btn" id="btn-reset-sim">NEW SORTIE</button>
+            </div>
+          </div>
+
+          <div class="console-body">
+            <div class="weapon-bar" role="toolbar" aria-label="Weapon Selection">
+              <button type="button" class="weapon-btn is-selected" data-weapon="torpedo" id="weapon-torpedo">
+                <span class="weapon-btn__name">MK-48 TORPEDO</span>
+                <span class="weapon-btn__meta">1×1 Single Cell (∞)</span>
+              </button>
+              <button type="button" class="weapon-btn" data-weapon="sonar" id="weapon-sonar">
+                <span class="weapon-btn__name">SONAR PING <span class="weapon-count">(2)</span></span>
+                <span class="weapon-btn__meta">3×3 Recon Sweep</span>
+              </button>
+              <button type="button" class="weapon-btn" data-weapon="airstrike" id="weapon-airstrike">
+                <span class="weapon-btn__name">HARPOON <span class="weapon-count">(2)</span></span>
+                <span class="weapon-btn__meta">1×3 Line Strike</span>
+              </button>
+              <button type="button" class="weapon-btn" data-weapon="tomahawk" id="weapon-tomahawk">
+                <span class="weapon-btn__name">TOMAHAWK <span class="weapon-count">(1)</span></span>
+                <span class="weapon-btn__meta">5-Cell Cross Salvo</span>
+              </button>
+            </div>
+
+            <div class="sim-workspace">
+              <div class="tactical-board-wrap">
+                <div class="grid-coords-top" aria-hidden="true">
+                  <span></span>
+                  <span>01</span><span>02</span><span>03</span><span>04</span><span>05</span>
+                  <span>06</span><span>07</span><span>08</span><span>09</span><span>10</span>
+                </div>
+                <div class="grid-main-row">
+                  <div class="grid-coords-left" aria-hidden="true">
+                    <span>A</span><span>B</span><span>C</span><span>D</span><span>E</span>
+                    <span>F</span><span>G</span><span>H</span><span>I</span><span>J</span>
+                  </div>
+                  <div class="tactical-grid" id="tactical-grid" role="grid" aria-label="10 by 10 Tactical Strike Grid"></div>
+                </div>
+              </div>
+
+              <aside class="sim-sidebar">
+                <div class="sidebar-box">
+                  <div class="sidebar-box__title">HOSTILE TASK FORCE</div>
+                  <div class="fleet-status-list" id="fleet-status-list"></div>
+                </div>
+
+                <div class="sidebar-box">
+                  <div class="sidebar-box__title">SORTIE TELEMETRY</div>
+                  <div class="fleet-row">
+                    <span>SALVOS FIRED</span>
+                    <strong id="stat-salvos">0</strong>
+                  </div>
+                  <div class="fleet-row" style="margin-top:4px;">
+                    <span>HULL HITS</span>
+                    <strong id="stat-hits">0 / 17</strong>
+                  </div>
+                </div>
+
+                <div class="sidebar-box">
+                  <div class="sidebar-box__title">COMBAT LOG</div>
+                  <div class="combat-log" id="combat-log" aria-live="polite"></div>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TASK FORCE 58 FLEET REGISTRY -->
+    <section class="section" id="fleet">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">TASK FORCE 58 // VECTOR SILHOUETTES</div>
+          <h2 class="section-title">Five Commissioned Warships</h2>
+          <p class="section-desc">
+            Every vessel in Aegis Naval Command is rendered with custom SwiftUI vector hull geometry, deck superstructures, and damage telemetry indicators.
+          </p>
+        </div>
+
+        <div class="fleet-grid">
+          <article class="vessel-card">
+            <div>
+              <div class="vessel-card__code">CVN-65 // 5 CELLS</div>
+              <h3 class="vessel-card__name">USS Enterprise</h3>
+              <p class="vessel-card__class">Fleet Aircraft Carrier</p>
+            </div>
+            <div class="vessel-silhouette" aria-hidden="true">
+              <svg viewBox="0 0 200 40">
+                <polygon points="8,12 185,10 194,20 182,30 14,30 4,22" />
+                <rect x="115" y="5" width="34" height="7" />
+              </svg>
+            </div>
+            <div class="vessel-specs">
+              <span>89,600 TONS</span>
+              <span>LENGTH: 5 SECTORS</span>
+            </div>
+          </article>
+
+          <article class="vessel-card">
+            <div>
+              <div class="vessel-card__code">BB-61 // 4 CELLS</div>
+              <h3 class="vessel-card__name">USS Iowa</h3>
+              <p class="vessel-card__class">Fast Dreadnought Battleship</p>
+            </div>
+            <div class="vessel-silhouette" aria-hidden="true">
+              <svg viewBox="0 0 200 40">
+                <path d="M10,20 L35,11 L168,11 L192,20 L168,29 L35,29 Z" />
+                <rect x="52" y="15" width="22" height="10" />
+                <rect x="92" y="13" width="32" height="14" />
+              </svg>
+            </div>
+            <div class="vessel-specs">
+              <span>57,540 TONS</span>
+              <span>LENGTH: 4 SECTORS</span>
+            </div>
+          </article>
+
+          <article class="vessel-card">
+            <div>
+              <div class="vessel-card__code">CG-47 // 3 CELLS</div>
+              <h3 class="vessel-card__name">USS Ticonderoga</h3>
+              <p class="vessel-card__class">Aegis Guided-Missile Cruiser</p>
+            </div>
+            <div class="vessel-silhouette" aria-hidden="true">
+              <svg viewBox="0 0 200 40">
+                <polygon points="16,20 42,12 166,12 186,20 166,28 42,28" />
+                <rect x="74" y="14" width="48" height="12" />
+              </svg>
+            </div>
+            <div class="vessel-specs">
+              <span>9,800 TONS</span>
+              <span>LENGTH: 3 SECTORS</span>
+            </div>
+          </article>
+
+          <article class="vessel-card">
+            <div>
+              <div class="vessel-card__code">SSN-21 // 3 CELLS</div>
+              <h3 class="vessel-card__name">USS Seawolf</h3>
+              <p class="vessel-card__class">Fast Attack Submarine</p>
+            </div>
+            <div class="vessel-silhouette" aria-hidden="true">
+              <svg viewBox="0 0 200 40">
+                <rect x="20" y="13" width="156" height="14" rx="7" />
+                <rect x="76" y="7" width="24" height="8" rx="2" />
+              </svg>
+            </div>
+            <div class="vessel-specs">
+              <span>9,138 TONS</span>
+              <span>LENGTH: 3 SECTORS</span>
+            </div>
+          </article>
+
+          <article class="vessel-card">
+            <div>
+              <div class="vessel-card__code">DDG-51 // 2 CELLS</div>
+              <h3 class="vessel-card__name">USS Arleigh Burke</h3>
+              <p class="vessel-card__class">Guided-Missile Destroyer</p>
+            </div>
+            <div class="vessel-silhouette" aria-hidden="true">
+              <svg viewBox="0 0 200 40">
+                <polygon points="24,20 52,12 162,13 178,20 162,27 52,28" />
+                <rect x="82" y="15" width="36" height="10" />
+              </svg>
+            </div>
+            <div class="vessel-specs">
+              <span>9,200 TONS</span>
+              <span>LENGTH: 2 SECTORS</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI DOCTRINE & COMBAT RULES -->
+    <section class="section" id="doctrine">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">COMBAT SYSTEMS // RULES OF ENGAGEMENT</div>
+          <h2 class="section-title">Three AI Ranks &amp; Three Combat Doctrines</h2>
+          <p class="section-desc">
+            From classic single-shot duels to multi-weapon Tactical Ops, customize every engagement or hand off the console in 2-Player Classified Hotseat mode.
+          </p>
+        </div>
+
+        <div class="doctrine-grid">
+          <article class="doctrine-card">
+            <span class="doctrine-card__tag doctrine-card__tag--cyan">FLEET ADMIRAL AI</span>
+            <h3>Combinatorial Probability Matrix</h3>
+            <p>
+              Evaluates every valid horizontal and vertical placement of remaining ships across all 100 cells, weighting un-sunk hull hits and checkerboard parity to compute optimal strikes—and lets you toggle the same live sensor overlay on your own HUD.
+            </p>
+          </article>
+
+          <article class="doctrine-card">
+            <span class="doctrine-card__tag doctrine-card__tag--emerald">3 RULE VARIANTS</span>
+            <h3>Classic, Salvo &amp; Tactical Ops</h3>
+            <p>
+              Play traditional 1-shot <strong>Classic</strong>, dynamic <strong>Salvo</strong> where your shots per turn match your surviving fleet count, or <strong>Tactical Ops</strong> featuring 3×3 Active Sonar Pings, 1×3 Harpoon Airstrikes, and 5-cell Tomahawk Cross Barrages.
+            </p>
+          </article>
+
+          <article class="doctrine-card">
+            <span class="doctrine-card__tag doctrine-card__tag--amber">PROCEDURAL WAV ENGINE</span>
+            <h3>Zero-Dependency Naval Audio</h3>
+            <p>
+              Synthesizes 44.1 kHz PCM waveforms directly in memory—generating resonant sonar pings, compressed-air torpedo launches, multi-stage hull detonations, sinking klaxons, and hydro splashes without external audio assets.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUILD & INSTALL -->
+    <section class="section" id="install">
+      <div class="container">
+        <div class="install-panel">
+          <div>
+            <div class="section-eyebrow">DEPLOYMENT // MACOS 14 SONOMA OR LATER</div>
+            <h2 class="section-title">Ready for Immediate Deployment</h2>
+            <p class="section-desc" style="margin-bottom: 24px;">
+              Download the prebuilt macOS app bundle or compile directly from Swift source in seconds with zero third-party dependencies.
+            </p>
+            <div class="hero__cta-row" style="margin-bottom: 0;">
+              <a href="downloads/Battleship-macOS-arm64.zip" download class="btn btn--primary" id="install-btn-download">
+                Download Battleship-macOS-arm64.zip
+              </a>
+              <a href="https://github.com/windmaple/Battleship" target="_blank" rel="noopener" class="btn btn--ghost" id="install-btn-github">
+                Browse GitHub Repository
+              </a>
+            </div>
+          </div>
+
+          <pre class="code-block"><code><span class="comment"># Clone &amp; build native macOS app bundle</span>
+<span class="cmd">git clone</span> https://github.com/windmaple/Battleship.git
+<span class="cmd">cd</span> Battleship
+<span class="cmd">./build_app.sh</span>
+<span class="cmd">open</span> Battleship.app
+
+<span class="comment"># Run unit test suite (Coordinate, Engine, NavalAI)</span>
+<span class="cmd">swift test</span></code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>BATTLESHIP — AEGIS NAVAL COMMAND FOR MACOS</span>
+      <span>BUILT WITH SWIFT &amp; SWIFTUI // <a href="https://github.com/windmaple/Battleship" target="_blank" rel="noopener" id="footer-link-github">GITHUB</a></span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
